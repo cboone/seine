@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Zig
+        uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.2
+
+      - name: Build all targets
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          BINARY="seine"
+
+          declare -A targets=(
+            ["x86_64-linux-gnu"]="linux-amd64"
+            ["aarch64-linux-gnu"]="linux-arm64"
+            ["x86_64-macos"]="darwin-amd64"
+            ["aarch64-macos"]="darwin-arm64"
+            ["x86_64-windows-gnu"]="windows-amd64"
+          )
+
+          for zig_target in "${!targets[@]}"; do
+            label="${targets[$zig_target]}"
+            printf 'Building for %s (%s)...\n' "${zig_target}" "${label}"
+            zig build -Dtarget="${zig_target}" -Doptimize=ReleaseSafe
+
+            if [[ "${label}" == windows-* ]]; then
+              archive="${BINARY}-${VERSION}-${label}.zip"
+              cp zig-out/bin/${BINARY}.exe .
+              zip "${archive}" "${BINARY}.exe" LICENSE README.md
+              rm "${BINARY}.exe"
+            else
+              archive="${BINARY}-${VERSION}-${label}.tar.gz"
+              cp zig-out/bin/${BINARY} .
+              tar -czf "${archive}" "${BINARY}" LICENSE README.md
+              rm "${BINARY}"
+            fi
+          done
+
+      - name: Generate checksums
+        run: sha256sum seine-*.tar.gz seine-*.zip > checksums.txt
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            seine-*.tar.gz
+            seine-*.zip
+            checksums.txt
+          generate_release_notes: true
