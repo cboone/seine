@@ -1,0 +1,6 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": ["cboone", "seine", "zig"],
+  "ignorePaths": [".git/", ".zig-cache/", "zig-out/", "node_modules/", "*.lock"]
+}
