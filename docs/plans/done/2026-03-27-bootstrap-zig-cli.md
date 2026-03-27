@@ -51,6 +51,7 @@ Run `zig init` in the project root, then customize:
 ### Step 3: Update README.md
 
 Rewrite with Zig-specific content:
+
 - Description: "a fast streaming entropy scanner"
 - Installation section: Homebrew, shell script, build from source (`zig build`)
 - Usage section (placeholder)
@@ -71,6 +72,7 @@ Standard path-ignore patterns and concurrency settings.
 ### Step 5: Cross-Language Linters (setup-linters, scoped down)
 
 Run setup-linters skill for cross-language tools only:
+
 - **.editorconfig**: Base template + `[*.zig]` section (4-space indent, space style)
 - **.prettierrc.json** / **.prettierignore**: For Markdown/YAML/JSON. Ignore `.zig-cache/`, `zig-out/`, `node_modules/`, `*.sh`
 - **.markdownlint-cli2.jsonc**: Standard config with MD013 disabled
@@ -111,6 +113,7 @@ Create `.github/workflows/release.yml`:
 #### Homebrew Formula (`Formula/seine.rb`)
 
 Cross-platform formula with `on_macos`/`on_linux` blocks for intel/arm:
+
 - Placeholder SHA256 values (updated after first release)
 - Points to GitHub Releases tarballs
 - `bin.install "seine"` + version test
@@ -119,6 +122,7 @@ Cross-platform formula with `on_macos`/`on_linux` blocks for intel/arm:
 #### Shell Install Script (`install.sh`)
 
 Cross-platform curl installer following the setup-installers template:
+
 - Detects OS (linux/darwin) and arch (amd64/arm64)
 - Downloads from GitHub Releases
 - Verifies SHA-256 checksum from `checksums.txt`
@@ -142,16 +146,16 @@ Add Homebrew (`brew install cboone/tap/seine`) and shell script install methods.
 
 These are valuable but should wait until the corresponding code exists:
 
-| Item                | When to add                                 |
-| ------------------- | ------------------------------------------- |
-| Fuzzing             | When entropy calculation module is written  |
-| AddressSanitizer    | When C interop is needed                    |
-| Doc generation      | When API surface is substantial             |
-| Benchmarking        | When there is code to benchmark (MB/s throughput) |
+| Item             | When to add                                       |
+| ---------------- | ------------------------------------------------- |
+| Fuzzing          | When entropy calculation module is written        |
+| AddressSanitizer | When C interop is needed                          |
+| Doc generation   | When API surface is substantial                   |
+| Benchmarking     | When there is code to benchmark (MB/s throughput) |
 
 ## Final Project Structure
 
-```
+```text
 seine/
   .claude/settings.json
   .github/
