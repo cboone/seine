@@ -19,12 +19,14 @@ run: ## Build and run
 	zig build run
 
 clean: ## Remove build artifacts
-	rm -rf .zig-cache/ zig-out/
+	rm -rf .zig-cache/ zig-out/ release/
 
 release: ## Build release binaries for all targets
 	@for target in x86_64-linux-gnu aarch64-linux-gnu x86_64-macos aarch64-macos x86_64-windows-gnu; do \
 		printf 'Building for %s...\n' "$$target"; \
 		zig build -Dtarget="$$target" -Doptimize=ReleaseSafe; \
+		mkdir -p "release/$$target"; \
+		cp -R zig-out/* "release/$$target/"; \
 	done
 
 test-scrut: build ## Run scrut CLI tests
