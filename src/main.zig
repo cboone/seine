@@ -6,7 +6,10 @@ pub fn run(writer: anytype) !void {
 
 pub fn main() !void {
     const stdout = std.fs.File.stdout();
-    try run(stdout.writer());
+    var buf: [4096]u8 = undefined;
+    var bw = stdout.writer(&buf);
+    try run(&bw.interface);
+    try bw.interface.flush();
 }
 
 test "run writes banner" {
