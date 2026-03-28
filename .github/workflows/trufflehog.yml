@@ -16,6 +16,6 @@ permissions:
 
 jobs:
   scan:
-    uses: cboone/gh-actions/.github/workflows/secret-scan.yml@v1
+    uses: cboone/gh-actions/.github/workflows/secret-scan.yml@ddcb48c0270025388a1a18012271f918948df6e9 # v1
     with:
       tool: trufflehog

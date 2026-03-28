@@ -6,6 +6,8 @@ A fast streaming entropy scanner.
 
 ### Homebrew
 
+Available after the first tagged release:
+
 ```bash
 brew install cboone/tap/seine
 ```
