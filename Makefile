@@ -22,7 +22,7 @@ clean: ## Remove build artifacts
 	rm -rf .zig-cache/ zig-out/ release/
 
 release: ## Build release binaries for all targets
-	@for target in x86_64-linux-gnu aarch64-linux-gnu x86_64-macos aarch64-macos x86_64-windows-gnu; do \
+	@set -e; for target in x86_64-linux-gnu aarch64-linux-gnu x86_64-macos aarch64-macos x86_64-windows-gnu; do \
 		printf 'Building for %s...\n' "$$target"; \
 		zig build -Dtarget="$$target" -Doptimize=ReleaseSafe; \
 		mkdir -p "release/$$target"; \
@@ -37,6 +37,10 @@ test-scrut: build ## Run scrut CLI tests
 	SEINE_BIN="$(CURDIR)/zig-out/bin/seine" scrut test tests/scrut/
 
 test-scrut-update: build ## Update scrut test expectations
+	@if ! command -v scrut >/dev/null 2>&1; then \
+		echo "scrut not installed. Install from https://github.com/facebookincubator/scrut"; \
+		exit 1; \
+	fi
 	SEINE_BIN="$(CURDIR)/zig-out/bin/seine" scrut update --replace --assume-yes tests/scrut/
 
 test-all: test test-scrut ## Run all tests (unit + scrut)
