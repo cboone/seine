@@ -1,6 +1,6 @@
 # Basic output
 
-Tests for seine basic invocation.
+Tests for basic seine invocation.
 
 ## Default output
 

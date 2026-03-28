@@ -6,5 +6,5 @@ pub fn main() !void {
 }
 
 test "main runs without error" {
-    try std.testing.expect(true);
+    try main();
 }
