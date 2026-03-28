@@ -1,0 +1,21 @@
+name: gitleaks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    uses: cboone/gh-actions/.github/workflows/secret-scan.yml@ddcb48c0270025388a1a18012271f918948df6e9 # v1
+    with:
+      tool: gitleaks
