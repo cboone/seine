@@ -19,6 +19,7 @@ token.json
 .zig-cache/
 zig-out/
 release/
+seine
 *.o
 *.d
 *.pdb
