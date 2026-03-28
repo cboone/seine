@@ -24,7 +24,7 @@ The binary will be at `zig-out/bin/seine`.
 
 ## Usage
 
-TODO
+TODO:
 
 ## Development
 
