@@ -37,7 +37,6 @@ seine/
   CODE_OF_CONDUCT.md
   CONTRIBUTING.md
   cspell.json
-  install.sh
   LICENSE
   Makefile
   README.md

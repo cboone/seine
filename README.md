@@ -10,18 +10,6 @@ A fast streaming entropy scanner.
 brew install cboone/tap/seine
 ```
 
-### Shell script
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/cboone/seine/main/install.sh | bash
-```
-
-To install a specific version:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/cboone/seine/main/install.sh | bash -s -- --version v1.0.0
-```
-
 ### Build from source
 
 Requires [Zig](https://ziglang.org/) 0.15.2 or later:
