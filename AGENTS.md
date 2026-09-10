@@ -72,4 +72,3 @@ make help          # Show all targets
 - Cross-compilation targets: x86_64-linux-gnu, aarch64-linux-gnu, x86_64-macos, aarch64-macos, x86_64-windows-gnu
 - `ReleaseSafe` optimization for production builds
 - Prettier for Markdown/YAML/JSON formatting
-- Conventional Commits for commit messages
